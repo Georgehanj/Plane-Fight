@@ -1,18 +1,32 @@
-a = int(1.5)
-b = float(a)
-b += 1.5
-a = b
+import pygame
+from threading import Thread
 
-print(a)
+# 初始化 Pygame 应用
+pygame.init()
+screen = pygame.display.set_mode((640, 480))
+
+# 加载声音文件
+sound = pygame.mixer.Sound("sounds/bgm.mp3")
+
+# 播放声音的函数
+def play_sound():
+    sound.play()
 
 
+# 创建一个线程，并在该线程中播放声音
+thread = Thread(target=play_sound)
+thread.start()
 
+# 主循环
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
 
-def prep_ship(self):
-	'''显示还剩下多少飞船'''
-	self.ships = Group()
-	for ship_number in range(self.stats.ships_left):
-		ship = Ship(self.ai_settings, self.screen)
-		ship.rect.x = 10 + ship_number * ship.rect.width
-		ship.rect.y = 10
-		self.ships.add(ship)
+    # 更新屏幕
+    screen.fill((255, 255, 255))
+    pygame.display.flip()
+
+# 退出 Pygame 应用
+pygame.quit()

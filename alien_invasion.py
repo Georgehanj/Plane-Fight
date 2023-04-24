@@ -6,6 +6,8 @@ from pygame.sprite import Group
 from game_stats import GameStats
 from button import Button
 from scoreboard import Scoreboard
+from sounds import thread_bgm
+
 
 def run_game():
 	# 初始化游戏并创建一个窗口对象
@@ -16,6 +18,8 @@ def run_game():
 
 	# 创建Play按钮
 	play_button = Button(ai_settings, screen, "Play")
+	# 创建进程播放bgm
+	thread_bgm()
 
 	# 创建存储游戏统计信息的实例
 	stats = GameStats(ai_settings)
@@ -33,6 +37,8 @@ def run_game():
 	# 创建存储字典的编组
 	bullets = Group()
 
+
+
 	# 开始游戏主循环
 	while True:
 		gf.check_events(ai_settings, screen, stats, sb, play_button, ship, aliens, bullets)
@@ -43,7 +49,6 @@ def run_game():
 			gf.update_aliens(ai_settings, stats, screen, sb, ship, aliens, bullets)
 
 		gf.update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button)
-
 
 
 run_game()

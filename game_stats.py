@@ -1,3 +1,5 @@
+import json
+
 class GameStats():
 	'''跟踪游戏的统计信息'''
 	def __init__(self, ai_settings):
@@ -7,7 +9,10 @@ class GameStats():
 		# 开始游戏处于非活动状态
 		self.game_active = False
 		# 不重置最高得分
-		self.high_score = 0
+		with open(r'data\high_score.json') as file_object:
+			json_data = json.load(file_object)
+			self.high_score = json_data['high_score']
+
 
 	def reset_stats(self):
 		'''初始化游戏运行期间可能出现的变化'''
